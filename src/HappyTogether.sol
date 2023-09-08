@@ -33,7 +33,6 @@ contract HappyTogether {
 
     // The wedding gift
     struct Gift {
-        bool wrapped;
         bool sheWants;
         bool heWants;
     }
@@ -58,18 +57,17 @@ contract HappyTogether {
     event GiftUnwrapped();
 
     /**
-     *  @dev function for accepting gifts
+     *  @dev function for sending gifts
      */
-    function sendGift(string memory _greeting, string memory _from) external payable {
-        gift.wrapped = true;
-        emit GivenGift(_greeting, _from, address(this).balance);
+    function sendGift(string calldata _greeting, string calldata _from) external payable {
+        emit GivenGift(_greeting, _from, msg.value);
     }
 
     /**
      *  @dev super important function for calling out a promise
      *  @param _what string is the made promise
      */
-    function iPromise(string calldata _what) external {
+    function iPromise(string calldata _what) external payable {
         if (msg.sender == BRIDE) {
             family.wife = BRIDE;
             emit ShePromised(_what);
@@ -87,7 +85,6 @@ contract HappyTogether {
      */
     function brightFuture(address _home) external {
         if (_home == address(0)) revert();
-        if (!gift.wrapped) revert();
 
         if (msg.sender == family.wife) {
             gift.sheWants = true;
@@ -101,7 +98,7 @@ contract HappyTogether {
 
         if (gift.sheWants && gift.heWants) {
             payable(family.home).transfer(address(this).balance);
-            giftUnwrapp();
+            emit GiftUnwrapped();
         }
     }
 
@@ -115,16 +112,5 @@ contract HappyTogether {
         } else if (family.home != _home) {
             revert();
         }
-    }
-
-    /**
-     *  @dev simple function that unwrapps the gift and resets values
-     */
-    function giftUnwrapp() internal {
-        gift.wrapped = false;
-        gift.sheWants = false;
-        gift.heWants = false;
-        family.home = address(0);
-        emit GiftUnwrapped();
     }
 }
