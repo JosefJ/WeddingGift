@@ -54,15 +54,15 @@ contract HappyTogether {
     event HePromised(string what);
 
     // Gift unwrapping
-    event GivenGift(string message, uint256 amount);
+    event GivenGift(string greeting, uint256 amount);
     event GiftUnwrapped();
 
     /**
      *  @dev function for accepting gifts
      */
-    function sendGift(string memory _message) external payable {
+    function sendGift(string memory _greeting) external payable {
         gift.wrapped = true;
-        emit GivenGift(_message, address(this).balance);
+        emit GivenGift(_greeting, address(this).balance);
     }
 
     /**
