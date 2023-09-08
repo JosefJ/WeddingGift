@@ -2,6 +2,24 @@
 pragma solidity ^0.8.21;
 
 /**
+ *          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⠛⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ *          ⠀⠀⠀⠀⠀⠀⠀⣰⠟⠋⠁⠀⢸⡇⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ *          ⠀⠀⠀⠀⠀⠀⠀⠹⣦⣀⣀⣀⣀⡇⠀⠀⢰⠋⠉⢻⠶⢦⡄⠀⠀⠀⠀⠀⠀⠀
+ *          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠁⠀⠀⢸⡆⠀⠀⠀⢀⡿⠀⠀⠀⠀⠀⠀⠀
+ *          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⣀⣤⠶⠋⠀⠀⠀⠀⠀⠀⠀⠀
+ *          ⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣆⡀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ *          ⠀⠀⠀⠀⠀⣠⠞⠛⠉⠀⠈⠙⢧⡀⠀⠀⠀⠀⢀⣠⠴⠶⠶⠶⣤⡀⠀⠀⠀⠀
+ *          ⠀⠀⠀⠀⢀⡏⣀⣠⡴⠶⣆⠀⣈⣧⠀⠀⠀⢰⠏⠁⠀⠀⠀⠀⠀⢻⡄⠀⠀⠀
+ *          ⠀⠀⠀⠀⣟⠛⠁⠀⠀⠀⠈⠛⠙⠛⡇⠀⠀⡟⢀⣠⣤⣤⠾⢷⣄⠀⣧⠀⠀⠀
+ *          ⠀⠀⠀⠀⠙⢦⡀⠀⠀⠀⠀⠀⢀⡼⠃⠀⠀⡇⢸⡇⠀⠀⠀⠀⢸⡇⢻⠀⠀⠀
+ *          ⠀⠀⠀⠀⠀⠈⠻⣄⡀⠀⣀⣴⠟⠀⠀⠀⠀⣧⣸⣇⠀⠀⠀⠀⣼⢃⣸⡇⠀⠀
+ *          ⠀⠀⠀⠀⠀⠀⠀⢸⡏⠉⠉⣿⡀⠀⠀⠀⠀⠉⠉⠙⡷⠦⠴⣾⠉⠉⠉⠁⠀⠀
+ *          ⠀⠀⠀⠀⠀⣀⡴⠞⠛⠒⠚⠋⠉⠛⠶⣤⣀⠀⣠⡴⠳⠶⠶⠛⠶⣄⡀⠀⠀⠀
+ *          ⠀⠀⣀⡴⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⠟⠁⠀⠀⠀⠀⠀⠀⠈⠙⢶⡄⠀
+ *          ⠀⣰⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⠀
+ *          ⢀⡟⠀⠀⢰⡆⠀⠀⠀⠀⠀⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆
+ *          ⢸⠇⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⡾⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⣶⠀⠀⣧
+ *          ⣼⣀⣀⣀⣸⣇⣀⣀⣀⣀⣀⣀⣀⣸⣃⣀⣀⣸⣀⣀⣀⣀⣀⣀⣀⣀⣿⣀⣀⣸
  * @title HappyTogether
  * @dev This is a wedding gift contract. The prupose is to
  *  approximately record the wedding date & to give something
@@ -12,12 +30,6 @@ contract HappyTogether {
     // Keep as constants as they should be!
     address constant BRIDE = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4; // FILL YOUR OWN
     address constant GROOM = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2; // FILL YOUR OWN
-
-    // To remember if they've promised
-    struct Promises {
-        bool bride;
-        bool groom;
-    }
 
     // The wedding gift
     struct Gift {
@@ -34,7 +46,6 @@ contract HappyTogether {
     }
 
     // Initiate structs
-    Promises promised;
     Gift gift;
     Family family;
 
@@ -43,55 +54,49 @@ contract HappyTogether {
     event HePromised(string what);
 
     // Gift unwrapping
-    event givenGift(uint256 amount);
-    event giftUnwrapped();
+    event GivenGift(string message, uint256 amount);
+    event GiftUnwrapped();
 
-    // Conditions
-    error NotMarried();
-    error NotWrapped();
-
-    /*
-     *  @dev fallback function for accepting gifts
+    /**
+     *  @dev function for accepting gifts
      */
-    receive() external payable {
+    function sendGift(string memory _message) external payable {
         gift.wrapped = true;
-        emit givenGift(address(this).balance);
+        emit GivenGift(_message, address(this).balance);
     }
 
-    /*
+    /**
      *  @dev super important function for calling out a promise
      *  @param _what string is the made promise
      */
-    function iPromise(string calldata _what) public {
-        require(msg.sender == BRIDE || msg.sender == GROOM);
-
+    function iPromise(string calldata _what) external {
         if (msg.sender == BRIDE) {
-            promised.bride = true;
             family.wife = BRIDE;
             emit ShePromised(_what);
         } else if (msg.sender == GROOM) {
-            promised.groom = true;
             family.husband = GROOM;
             emit HePromised(_what);
+        } else {
+            revert();
         }
     }
 
-    /*
+    /**
      *  @dev function to withdraw the wedding gift
      *  @param _home address is the account to which the entire balance of the gift should be send to
      */
-    function brightFuture(address _home) public {
-        if (msg.sender != family.wife && msg.sender != family.husband) revert NotMarried();
-        if (!gift.wrapped) revert NotWrapped();
-
-        handleHome(_home);
+    function brightFuture(address _home) external {
+        if (_home == address(0)) revert();
+        if (!gift.wrapped) revert();
 
         if (msg.sender == family.wife) {
             gift.sheWants = true;
+            handleHome(_home);
         }
 
         if (msg.sender == family.husband) {
             gift.heWants = true;
+            handleHome(_home);
         }
 
         if (gift.sheWants && gift.heWants) {
@@ -100,35 +105,19 @@ contract HappyTogether {
         }
     }
 
-    /*
+    /**
      *  @dev internal function for home address handling
      *  @param _home address to be set or checked
      */
     function handleHome(address _home) internal {
         if (family.home == address(0)) {
             family.home = _home;
-        } else {
-            if (msg.sender == family.wife) {
-                if (gift.sheWants) {
-                    family.home = _home;
-                } else {
-                    if (family.home != _home) {
-                        revert();
-                    }
-                }
-            } else {
-                if (gift.heWants) {
-                    family.home = _home;
-                } else {
-                    if (family.home != _home) {
-                        revert();
-                    }
-                }
-            }
+        } else if (family.home != _home) {
+            revert();
         }
     }
 
-    /*
+    /**
      *  @dev simple function that unwrapps the gift and resets values
      */
     function giftUnwrapp() internal {
@@ -136,6 +125,6 @@ contract HappyTogether {
         gift.sheWants = false;
         gift.heWants = false;
         family.home = address(0);
-        emit giftUnwrapped();
+        emit GiftUnwrapped();
     }
 }
